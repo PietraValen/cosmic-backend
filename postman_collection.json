@@ -1,0 +1,805 @@
+{
+  "info": {
+    "name": "Cosmic Backend - NASA",
+    "description": "Coleção de rotas da API do backend para uso no Postman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Autenticação",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": ["{{base_url}}"],
+              "path": ["logout"]
+            }
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/me",
+              "host": ["{{base_url}}"],
+              "path": ["me"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/refresh",
+              "host": ["{{base_url}}"],
+              "path": ["refresh"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Detectores",
+      "item": [
+        {
+          "name": "Listar Detectores",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/detectors",
+              "host": ["{{base_url}}"],
+              "path": ["detectors"]
+            }
+          }
+        },
+        {
+          "name": "Criar Detector",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Detector LIGO\",\n  \"code\": \"LIGO\",\n  \"latitude\": 46.455,\n  \"longitude\": -119.407,\n  \"location\": \"Hanford, Washington\",\n  \"country\": \"USA\",\n  \"arm_length_km\": 4.00,\n  \"status\": \"active\",\n  \"operational_since\": \"2002-11-01\",\n  \"description\": \"Detector de ondas gravitacionais.\",\n  \"color\": \"#22d3ee\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/detectors",
+              "host": ["{{base_url}}"],
+              "path": ["detectors"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Detector",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/detectors/:id",
+              "host": ["{{base_url}}"],
+              "path": ["detectors", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Detector",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Detector VIRGO\",\n  \"code\": \"VIRGO\",\n  \"latitude\": 43.63,\n  \"longitude\": 10.5,\n  \"location\": \"Cascina, Itália\",\n  \"country\": \"Itália\",\n  \"arm_length_km\": 3.00,\n  \"status\": \"maintenance\",\n  \"operational_since\": \"2007-05-18\",\n  \"description\": \"Detector europeu de ondas gravitacionais.\",\n  \"color\": \"#10b981\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/detectors/:id",
+              "host": ["{{base_url}}"],
+              "path": ["detectors", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Detector",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/detectors/:id",
+              "host": ["{{base_url}}"],
+              "path": ["detectors", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Glitches",
+      "item": [
+        {
+          "name": "Listar Glitches",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/glitches",
+              "host": ["{{base_url}}"],
+              "path": ["glitches"]
+            }
+          }
+        },
+        {
+          "name": "Criar Glitch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detector_id\": 1,\n  \"glitch_type_id\": 2,\n  \"timestamp\": \"2023-10-01T12:00:00Z\",\n  \"peak_frequency\": 150.25,\n  \"snr\": 12.3456,\n  \"duration\": 0.1234,\n  \"confidence\": 0.95,\n  \"classification_method\": \"ai\",\n  \"spectrogram_url\": \"https://example.com/spectrogram.png\",\n  \"notes\": \"Glitch detectado automaticamente.\",\n  \"validated\": true,\n  \"validated_by\": 3,\n  \"validated_at\": \"2023-10-02T15:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/glitches",
+              "host": ["{{base_url}}"],
+              "path": ["glitches"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Glitch",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/glitches/:id",
+              "host": ["{{base_url}}"],
+              "path": ["glitches", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Glitch",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detector_id\": 2,\n  \"glitch_type_id\": 3,\n  \"timestamp\": \"2023-10-05T14:30:00Z\",\n  \"peak_frequency\": 200.50,\n  \"snr\": 15.6789,\n  \"duration\": 0.5678,\n  \"confidence\": 0.85,\n  \"classification_method\": \"human\",\n  \"spectrogram_url\": \"https://example.com/new-spectrogram.png\",\n  \"notes\": \"Glitch revisado manualmente.\",\n  \"validated\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/glitches/:id",
+              "host": ["{{base_url}}"],
+              "path": ["glitches", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Glitch",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/glitches/:id",
+              "host": ["{{base_url}}"],
+              "path": ["glitches", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tipos de Glitches",
+      "item": [
+        {
+          "name": "Listar Tipos de Glitches",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/glitch-types",
+              "host": ["{{base_url}}"],
+              "path": ["glitch-types"]
+            }
+          }
+        },
+        {
+          "name": "Criar Tipo de Glitch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tipo X\",\n  \"description\": \"Descrição do tipo de glitch\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/glitch-types",
+              "host": ["{{base_url}}"],
+              "path": ["glitch-types"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Tipo de Glitch",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/glitch-types/:id",
+              "host": ["{{base_url}}"],
+              "path": ["glitch-types", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Tipo de Glitch",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tipo Atualizado\",\n  \"description\": \"Nova descrição\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/glitch-types/:id",
+              "host": ["{{base_url}}"],
+              "path": ["glitch-types", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Tipo de Glitch",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/glitch-types/:id",
+              "host": ["{{base_url}}"],
+              "path": ["glitch-types", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eventos de Ondas Gravitacionais",
+      "item": [
+        {
+          "name": "Listar Eventos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/events",
+              "host": ["{{base_url}}"],
+              "path": ["events"]
+            }
+          }
+        },
+        {
+          "name": "Criar Evento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"GW150914\",\n  \"event_date\": \"2015-09-14T09:50:45Z\",\n  \"latitude\": 46.455,\n  \"longitude\": -119.407,\n  \"event_type\": \"BBH\",\n  \"mass_1\": 36.2,\n  \"mass_2\": 29.1,\n  \"distance_mpc\": 410.2,\n  \"false_alarm_rate\": 0.0001,\n  \"description\": \"Primeira detecção de ondas gravitacionais.\",\n  \"significance\": \"Alta\",\n  \"detectors\": [\"LIGO\", \"VIRGO\"],\n  \"color\": \"#f59e0b\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/events",
+              "host": ["{{base_url}}"],
+              "path": ["events"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Evento",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/events/:id",
+              "host": ["{{base_url}}"],
+              "path": ["events", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Evento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"GW170817\",\n  \"event_date\": \"2017-08-17T12:41:04Z\",\n  \"latitude\": 43.63,\n  \"longitude\": 10.5,\n  \"event_type\": \"BNS\",\n  \"mass_1\": 1.46,\n  \"mass_2\": 1.27,\n  \"distance_mpc\": 40.0,\n  \"false_alarm_rate\": 0.00001,\n  \"description\": \"Primeira detecção de fusão de estrelas de nêutrons.\",\n  \"significance\": \"Muito Alta\",\n  \"detectors\": [\"LIGO\", \"VIRGO\"],\n  \"color\": \"#10b981\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/events/:id",
+              "host": ["{{base_url}}"],
+              "path": ["events", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Evento",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/events/:id",
+              "host": ["{{base_url}}"],
+              "path": ["events", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Observatórios",
+      "item": [
+        {
+          "name": "Listar Observatórios",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/observatories",
+              "host": ["{{base_url}}"],
+              "path": ["observatories"]
+            }
+          }
+        },
+        {
+          "name": "Criar Observatório",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Observatório X\",\n  \"description\": \"Descrição do observatório.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/observatories",
+              "host": ["{{base_url}}"],
+              "path": ["observatories"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Observatório",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/observatories/:id",
+              "host": ["{{base_url}}"],
+              "path": ["observatories", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Observatório",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Observatório Atualizado\",\n  \"description\": \"Nova descrição.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/observatories/:id",
+              "host": ["{{base_url}}"],
+              "path": ["observatories", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Observatório",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/observatories/:id",
+              "host": ["{{base_url}}"],
+              "path": ["observatories", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estatísticas de Projetos",
+      "item": [
+        {
+          "name": "Listar Estatísticas de Projetos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/project-statistics",
+              "host": ["{{base_url}}"],
+              "path": ["project-statistics"]
+            }
+          }
+        },
+        {
+          "name": "Criar Estatística de Projeto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Estatística X\",\n  \"description\": \"Descrição da estatística.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project-statistics",
+              "host": ["{{base_url}}"],
+              "path": ["project-statistics"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Estatística de Projeto",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/project-statistics/:id",
+              "host": ["{{base_url}}"],
+              "path": ["project-statistics", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Estatística de Projeto",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Estatística Atualizada\",\n  \"description\": \"Nova descrição.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project-statistics/:id",
+              "host": ["{{base_url}}"],
+              "path": ["project-statistics", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Estatística de Projeto",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/project-statistics/:id",
+              "host": ["{{base_url}}"],
+              "path": ["project-statistics", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Descobertas Científicas",
+      "item": [
+        {
+          "name": "Listar Descobertas Científicas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scientific-discoveries",
+              "host": ["{{base_url}}"],
+              "path": ["scientific-discoveries"]
+            }
+          }
+        },
+        {
+          "name": "Criar Descoberta Científica",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Descoberta X\",\n  \"description\": \"Descrição da descoberta.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/scientific-discoveries",
+              "host": ["{{base_url}}"],
+              "path": ["scientific-discoveries"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Descoberta Científica",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scientific-discoveries/:id",
+              "host": ["{{base_url}}"],
+              "path": ["scientific-discoveries", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Descoberta Científica",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Descoberta Atualizada\",\n  \"description\": \"Nova descrição.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/scientific-discoveries/:id",
+              "host": ["{{base_url}}"],
+              "path": ["scientific-discoveries", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Descoberta Científica",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scientific-discoveries/:id",
+              "host": ["{{base_url}}"],
+              "path": ["scientific-discoveries", ":id"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
