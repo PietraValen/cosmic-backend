@@ -800,6 +800,212 @@
           }
         }
       ]
+    },
+    {
+      "name": "Usuários",
+      "item": [
+        {
+          "name": "Listar Usuários",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Criar Usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Novo Usuário\",\n  \"email\": \"novo.usuario@example.com\",\n  \"password\": \"senha123\",\n  \"role\": \"admin\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Usuário",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Usuário",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Usuário Atualizado\",\n  \"email\": \"usuario.atualizado@example.com\",\n  \"role\": \"editor\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tipos de Eventos",
+      "item": [
+        {
+          "name": "Listar Tipos de Eventos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/event-types",
+              "host": ["{{base_url}}"],
+              "path": ["event-types"]
+            }
+          }
+        },
+        {
+          "name": "Criar Tipo de Evento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tipo de Evento X\",\n  \"description\": \"Descrição do tipo de evento.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/event-types",
+              "host": ["{{base_url}}"],
+              "path": ["event-types"]
+            }
+          }
+        },
+        {
+          "name": "Visualizar Tipo de Evento",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/event-types/:id",
+              "host": ["{{base_url}}"],
+              "path": ["event-types", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Tipo de Evento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tipo de Evento Atualizado\",\n  \"description\": \"Nova descrição do tipo de evento.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/event-types/:id",
+              "host": ["{{base_url}}"],
+              "path": ["event-types", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Tipo de Evento",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/event-types/:id",
+              "host": ["{{base_url}}"],
+              "path": ["event-types", ":id"]
+            }
+          }
+        }
+      ]
     }
   ]
 }

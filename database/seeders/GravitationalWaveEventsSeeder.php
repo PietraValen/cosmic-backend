@@ -19,7 +19,7 @@ class GravitationalWaveEventsSeeder extends Seeder
                 'event_date' => '2015-09-14 09:50:45',
                 'latitude' => -70.6,
                 'longitude' => -113.9,
-                'event_type' => 'BBH',
+                'event_type' => 1,
                 'mass_1' => 36.0,
                 'mass_2' => 29.0,
                 'distance_mpc' => 440,

@@ -17,16 +17,19 @@ return new class extends Migration
             $table->timestampTz('event_date');
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
-            $table->string('event_type');
+            $table->unsignedBigInteger('event_type');
             $table->decimal('mass_1', 10, 2)->nullable();
             $table->decimal('mass_2', 10, 2)->nullable();
             $table->decimal('distance_mpc', 10, 2)->nullable();
             $table->decimal('false_alarm_rate', 20, 10)->nullable();
+            $table->string('spectrogram_url')->nullable();
             $table->text('description')->nullable();
             $table->text('significance')->nullable();
             $table->json('detectors')->nullable();
             $table->string('color')->default('#f59e0b');
             $table->timestampsTz();
+
+            $table->index('event_type');
         });
     }
 

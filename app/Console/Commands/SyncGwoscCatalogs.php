@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\EventType;
 use Illuminate\Console\Command;
 use App\Services\GwoscService;
 use App\Models\ProjectStatistic;
@@ -23,21 +24,39 @@ class SyncGwoscCatalogs extends Command
     public function handle(): int
     {
         Log::info('[GWOSC] Iniciando sincronização de catálogos...');
-        $response = $this->gwosc->getCatalogs(['pagesize' => 100]);
+        $page = 1;
+        $total = 0;
 
-        if (!$response['success']) {
-            Log::error('[GWOSC] Erro ao buscar catálogos.', ['status' => $response['status']]);
-            return Command::FAILURE;
-        }
+        do {
+            $response = $this->gwosc->getCatalogs(['page' => $page, 'pagesize' => 50]);
 
-        $data = $response['data']['results'] ?? [];
-        ProjectStatistic::updateOrCreate(
-            ['stat_key' => 'gwosc_catalogs'],
-            ['stat_value' => json_encode($data), 'updated_at' => now()]
-        );
+            if (!$response['success']) {
+                Log::error('[GWOSC] Erro ao buscar catálogos.', ['status' => $response['status']]);
+                return Command::FAILURE;
+            }
 
-        Log::info('[GWOSC] Catálogos sincronizados com sucesso.', ['count' => count($data)]);
-        $this->info('Catálogos sincronizados: ' . count($data));
+            $events = $response['data']['results'] ?? [];
+            if (empty($events)) break;
+
+            foreach ($events as $event) {
+                $name = $event['name'] ?? null;
+                if (!$name) continue;
+
+                $description = $event['description'] ?? null;
+
+                EventType::updateOrCreate(
+                    ['name' => $name],
+                    ['description' => $description, 'updated_at' => now()]
+                );
+
+                $total++;
+            }
+            $page++;
+        } while (!empty($response['data']['next']));
+
+
+        Log::info("[GWOSC] Catálogos sincronizados: {$total}");
+        $this->info("Catálogos sincronizados: {$total}");
         return Command::SUCCESS;
     }
 }

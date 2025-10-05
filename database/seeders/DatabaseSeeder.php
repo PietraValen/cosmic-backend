@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             DetectorsSeeder::class,
+            EventTypeSeeder::class,
             GravitationalWaveEventsSeeder::class,
             ObservatoriesSeeder::class,
             GlitchTypesSeeder::class,

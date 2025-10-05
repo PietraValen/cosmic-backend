@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Log;
-
 class GwoscService
 {
     protected string $baseUrl;
@@ -35,10 +33,6 @@ class GwoscService
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        // Log::info('Retorno.', [
-        //     $response,
-        // ]);
 
         if (curl_errno($ch)) {
             $error = curl_error($ch);
@@ -100,13 +94,22 @@ class GwoscService
     }
 
     /**
-     * Retorna todas as versões de eventos, com opção de filtros.
-     * Endpoint: /event-versions
+     * Retorna um strain do evento específico pelo nome/alias.
+     * Endpoint: /events/{name}/strain-files
      */
-    public function getEventVersions(array $params = []): array
+    public function getEventStrain(string $name): array
+    {
+        return $this->request("/events/{$name}/strain-files");
+    }
+
+    /**
+     * Retorna todas as versões de eventos, com opção de filtros.
+     * Endpoint: /event-versions/{name}
+     */
+    public function getEventVersions(string $name, array $params = []): array
     {
         // Parâmetros de consulta suportados (exemplo): format, include-default-parameters, lastver, min-<param-name>, max-<param-name>, name-contains, page, pagesize, release
-        return $this->request('/event-versions', $params);
+        return $this->request("/event-versions/{$name}", $params);
     }
 
     /**

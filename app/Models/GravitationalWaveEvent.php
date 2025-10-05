@@ -17,6 +17,7 @@ class GravitationalWaveEvent extends Model
         'mass_1',
         'mass_2',
         'distance_mpc',
+        'spectrogram_url',
         'false_alarm_rate',
         'description',
         'significance',

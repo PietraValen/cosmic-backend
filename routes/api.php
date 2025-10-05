@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DetectorController;
+use App\Http\Controllers\Api\EventTypeController;
 use App\Http\Controllers\Api\GlitchController;
 use App\Http\Controllers\Api\GlitchTypeController;
 use App\Http\Controllers\Api\GravitationalWaveEventController;
@@ -56,6 +57,15 @@ Route::middleware([JwtMiddleware::class])->group(function () {
     Route::get('/events/{id}', [GravitationalWaveEventController::class, 'show']);
     Route::put('/events/{id}', [GravitationalWaveEventController::class, 'update']);
     Route::delete('/events/{id}', [GravitationalWaveEventController::class, 'destroy']);
+});
+
+// Tipos de evento de ondas gravitacionais
+Route::middleware([JwtMiddleware::class])->group(function () {
+    Route::get('/event-types', [EventTypeController::class, 'index']);
+    Route::post('/event-types', [EventTypeController::class, 'store']);
+    Route::get('/event-types/{id}', [EventTypeController::class, 'show']);
+    Route::put('/event-types/{id}', [EventTypeController::class, 'update']);
+    Route::delete('/event-types/{id}', [EventTypeController::class, 'destroy']);
 });
 
 // Observatórios
