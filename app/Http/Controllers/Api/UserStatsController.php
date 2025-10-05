@@ -14,7 +14,7 @@ class UserStatsController extends Controller
      */
     public function index()
     {
-        $stats = UserStat::all();
+        $stats = UserStat::with(['user'])->get();
         return response()->json($stats);
     }
 
@@ -48,7 +48,7 @@ class UserStatsController extends Controller
      */
     public function show($id)
     {
-        $stat = UserStat::findOrFail($id);
+        $stat = UserStat::with(['user'])->findOrFail($id);
         return response()->json($stat);
     }
 

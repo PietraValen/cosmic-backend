@@ -14,7 +14,7 @@ class GlitchController extends Controller
      */
     public function index()
     {
-        $glitches = Glitch::all();
+        $glitches = Glitch::with(['detector', 'glitchType', 'validatedByUser'])->get();
         return response()->json($glitches);
     }
 
@@ -24,24 +24,36 @@ class GlitchController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
             'detector_id' => 'required|exists:detectors,id',
-            'observatory_id' => 'required|exists:observatories,id',
-            'glitch_type_id' => 'required|exists:glitch_types,id',
-            'description' => 'nullable|string',
-            'severity' => ['nullable', Rule::in(['low','medium','high'])],
-            'detected_at' => 'required|date',
+            'glitch_type_id' => 'nullable|exists:glitch_types,id',
+            'timestamp' => 'required|date',
+            'peak_frequency' => 'nullable|numeric',
+            'snr' => 'nullable|numeric',
+            'duration' => 'nullable|numeric',
+            'confidence' => 'nullable|numeric|between:0,1',
+            'classification_method' => 'nullable|in:ai,human,hybrid',
+            'spectrogram_url' => 'nullable|url',
+            'notes' => 'nullable|string',
+            'validated' => 'boolean',
+            'validated_by' => 'nullable|exists:users,id',
+            'validated_at' => 'nullable|date',
         ], [
-            'title.required' => 'O título do glitch é obrigatório.',
             'detector_id.required' => 'O detector é obrigatório.',
             'detector_id.exists' => 'O detector informado não existe.',
-            'observatory_id.required' => 'O observatório é obrigatório.',
-            'observatory_id.exists' => 'O observatório informado não existe.',
-            'glitch_type_id.required' => 'O tipo de glitch é obrigatório.',
             'glitch_type_id.exists' => 'O tipo de glitch informado não existe.',
-            'detected_at.required' => 'A data de detecção é obrigatória.',
-            'detected_at.date' => 'A data de detecção é inválida.',
-            'severity.in' => 'O nível de severidade é inválido.',
+            'timestamp.required' => 'A data e hora do glitch é obrigatória.',
+            'timestamp.date' => 'A data e hora do glitch devem estar em um formato válido.',
+            'peak_frequency.numeric' => 'A frequência de pico deve ser um número.',
+            'snr.numeric' => 'A razão sinal-ruído (SNR) deve ser um número.',
+            'duration.numeric' => 'A duração deve ser um número.',
+            'confidence.numeric' => 'A confiança deve ser um número.',
+            'confidence.between' => 'A confiança deve estar entre 0 e 1.',
+            'classification_method.in' => 'O método de classificação deve ser: ai, human ou hybrid.',
+            'spectrogram_url.url' => 'A URL do espectrograma deve ser válida.',
+            'notes.string' => 'As observações devem ser um texto.',
+            'validated.boolean' => 'O campo de validação deve ser verdadeiro ou falso.',
+            'validated_by.exists' => 'O usuário validador informado não existe.',
+            'validated_at.date' => 'A data de validação deve estar em um formato válido.',
         ]);
 
         $glitch = Glitch::create($validated);
@@ -53,7 +65,7 @@ class GlitchController extends Controller
      */
     public function show($id)
     {
-        $glitch = Glitch::findOrFail($id);
+        $glitch = Glitch::with(['detector', 'glitchType', 'validatedByUser'])->findOrFail($id);
         return response()->json($glitch);
     }
 
@@ -65,19 +77,36 @@ class GlitchController extends Controller
         $glitch = Glitch::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
             'detector_id' => 'sometimes|required|exists:detectors,id',
-            'observatory_id' => 'sometimes|required|exists:observatories,id',
-            'glitch_type_id' => 'sometimes|required|exists:glitch_types,id',
-            'description' => 'nullable|string',
-            'severity' => ['nullable', Rule::in(['low','medium','high'])],
-            'detected_at' => 'sometimes|required|date',
+            'glitch_type_id' => 'sometimes|nullable|exists:glitch_types,id',
+            'timestamp' => 'sometimes|required|date',
+            'peak_frequency' => 'nullable|numeric',
+            'snr' => 'nullable|numeric',
+            'duration' => 'nullable|numeric',
+            'confidence' => 'nullable|numeric|between:0,1',
+            'classification_method' => 'nullable|in:ai,human,hybrid',
+            'spectrogram_url' => 'nullable|url',
+            'notes' => 'nullable|string',
+            'validated' => 'nullable|boolean',
+            'validated_by' => 'nullable|exists:users,id',
+            'validated_at' => 'nullable|date',
         ], [
+            'detector_id.required' => 'O detector é obrigatório.',
             'detector_id.exists' => 'O detector informado não existe.',
-            'observatory_id.exists' => 'O observatório informado não existe.',
             'glitch_type_id.exists' => 'O tipo de glitch informado não existe.',
-            'detected_at.date' => 'A data de detecção é inválida.',
-            'severity.in' => 'O nível de severidade é inválido.',
+            'timestamp.required' => 'A data e hora do glitch é obrigatória.',
+            'timestamp.date' => 'A data e hora do glitch devem estar em um formato válido.',
+            'peak_frequency.numeric' => 'A frequência de pico deve ser um número.',
+            'snr.numeric' => 'A razão sinal-ruído (SNR) deve ser um número.',
+            'duration.numeric' => 'A duração deve ser um número.',
+            'confidence.numeric' => 'A confiança deve ser um número.',
+            'confidence.between' => 'A confiança deve estar entre 0 e 1.',
+            'classification_method.in' => 'O método de classificação deve ser: ai, human ou hybrid.',
+            'spectrogram_url.url' => 'A URL do espectrograma deve ser válida.',
+            'notes.string' => 'As observações devem ser um texto.',
+            'validated.boolean' => 'O campo de validação deve ser verdadeiro ou falso.',
+            'validated_by.exists' => 'O usuário validador informado não existe.',
+            'validated_at.date' => 'A data de validação deve estar em um formato válido.',
         ]);
 
         $glitch->update($validated);

@@ -35,4 +35,9 @@ class GravitationalWaveEvent extends Model
         'event_date' => 'datetime',
         'detectors' => 'array'
     ];
+
+    public function type()
+    {
+        return $this->belongsTo(EventType::class, 'event_type');
+    }
 }

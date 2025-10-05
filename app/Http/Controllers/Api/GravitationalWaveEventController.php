@@ -14,7 +14,7 @@ class GravitationalWaveEventController extends Controller
      */
     public function index()
     {
-        $events = GravitationalWaveEvent::all();
+        $events = GravitationalWaveEvent::with('type')->get();
         return response()->json($events);
     }
 
@@ -54,7 +54,7 @@ class GravitationalWaveEventController extends Controller
      */
     public function show($id)
     {
-        $event = GravitationalWaveEvent::findOrFail($id);
+        $event = GravitationalWaveEvent::with('type')->findOrFail($id);
         return response()->json($event);
     }
 

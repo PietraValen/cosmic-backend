@@ -14,7 +14,7 @@ class UserClassificationController extends Controller
      */
     public function index()
     {
-        $classifications = UserClassification::all();
+        $classifications = UserClassification::with(['user', 'glitch', 'glitchType'])->get();
         return response()->json($classifications);
     }
 
@@ -41,7 +41,7 @@ class UserClassificationController extends Controller
      */
     public function show($id)
     {
-        $classification = UserClassification::findOrFail($id);
+        $classification = UserClassification::with(['user', 'glitch', 'glitchType'])->findOrFail($id);
         return response()->json($classification);
     }
 

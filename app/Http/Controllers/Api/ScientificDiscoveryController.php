@@ -14,7 +14,7 @@ class ScientificDiscoveryController extends Controller
      */
     public function index()
     {
-        $discoveries = ScientificDiscovery::all();
+        $discoveries = ScientificDiscovery::with(['event'])->get();
         return response()->json($discoveries);
     }
 
@@ -26,13 +26,13 @@ class ScientificDiscoveryController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'detected_at' => 'required|date',
-            'related_glitch_id' => 'nullable|exists:glitches,id',
+            'discovery_date' => 'required|date',
+            'related_event_id' => 'nullable|exists:gravitational_wave_events,id',
         ], [
             'title.required' => 'O título é obrigatório.',
-            'detected_at.required' => 'A data da descoberta é obrigatória.',
-            'detected_at.date' => 'A data da descoberta é inválida.',
-            'related_glitch_id.exists' => 'O glitch relacionado informado não existe.',
+            'discovery_date.required' => 'A data da descoberta é obrigatória.',
+            'discovery_date.date' => 'A data da descoberta é inválida.',
+            'related_event_id.exists' => 'O evento relacionado informado não existe.',
         ]);
 
         $discovery = ScientificDiscovery::create($validated);
@@ -44,7 +44,7 @@ class ScientificDiscoveryController extends Controller
      */
     public function show($id)
     {
-        $discovery = ScientificDiscovery::findOrFail($id);
+        $discovery = ScientificDiscovery::with(['event'])->findOrFail($id);
         return response()->json($discovery);
     }
 
@@ -58,11 +58,11 @@ class ScientificDiscoveryController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
-            'detected_at' => 'sometimes|required|date',
-            'related_glitch_id' => 'nullable|exists:glitches,id',
+            'discovery_date' => 'sometimes|required|date',
+            'related_event_id' => 'nullable|exists:gravitational_wave_events,id',
         ], [
-            'detected_at.date' => 'A data da descoberta é inválida.',
-            'related_glitch_id.exists' => 'O glitch relacionado informado não existe.',
+            'discovery_date.date' => 'A data da descoberta é inválida.',
+            'related_event_id.exists' => 'O evento relacionado informado não existe.',
         ]);
 
         $discovery->update($validated);
