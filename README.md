@@ -1,12 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
 ## Cosmic Backend - NASA
 
 Este é o backend do projeto Cosmic Backend - NASA, desenvolvido para gerenciar dados relacionados a detectores de ondas gravitacionais, glitches, eventos de ondas gravitacionais, observatórios e descobertas científicas.
@@ -17,6 +8,8 @@ Este é o backend do projeto Cosmic Backend - NASA, desenvolvido para gerenciar 
 - **JWT (JSON Web Token)**: Para autenticação e autorização.
 - **MySQL**: Banco de dados relacional.
 - **Postman**: Para testes e documentação de rotas da API.
+- **DeepSeek API**: Para obtenção de dados públicos relacionados a glitches e eventos gravitacionais.
+- **GWOSC API**: Para acesso a dados de ondas gravitacionais fornecidos pelo Gravitational Wave Open Science Center.
 
 ### Funcionalidades
 
@@ -28,12 +21,27 @@ Este é o backend do projeto Cosmic Backend - NASA, desenvolvido para gerenciar 
 - **Gestão de Observatórios**: CRUD para observatórios astronômicos.
 - **Estatísticas de Projetos**: CRUD para estatísticas relacionadas ao projeto.
 - **Descobertas Científicas**: CRUD para descobertas científicas registradas.
+- **Gestão de Usuários**: CRUD para gerenciamento de usuários do sistema.
+- **Gestão de Tipos de Eventos**: CRUD para gerenciamento de tipos de eventos de ondas gravitacionais.
 
 ### Estrutura do Projeto
 
 - **Rotas**: Definidas no arquivo `routes/api.php`.
 - **Controladores**: Localizados em `App\Http\Controllers\Api`.
 - **Middleware**: Implementação de autenticação JWT em `App\Http\Middleware\JwtMiddleware`.
+
+### Integração com APIs Públicas
+
+- **DeepSeek API**: Utilizada para obter informações detalhadas sobre glitches detectados em diferentes detectores.
+- **GWOSC API**: Utilizada para acessar dados de ondas gravitacionais, como eventos detectados e suas características.
+
+### Schedules e Cálculos
+
+Os schedules configurados no Laravel são responsáveis por:
+
+1. **Obtenção de Dados**: Realizar chamadas periódicas às APIs do DeepSeek e GWOSC para coletar informações atualizadas.
+2. **Análise Inicial**: Processar os dados obtidos e, através de cálculos específicos, determinar se os eventos detectados têm características de glitches gravitacionais.
+3. **Notificação para Análise**: Informar os analistas sobre os eventos classificados como potenciais glitches gravitacionais para revisão detalhada.
 
 ### Instalação
 
@@ -52,7 +60,7 @@ Este é o backend do projeto Cosmic Backend - NASA, desenvolvido para gerenciar 
      ```bash
      cp .env.example .env
      ```
-   - Configure as variáveis de ambiente, como conexão com o banco de dados e chave JWT.
+   - Configure as variáveis de ambiente, como conexão com o banco de dados, chave JWT e credenciais para as APIs do DeepSeek e GWOSC.
 
 4. Gere a chave da aplicação:
    ```bash
@@ -68,6 +76,16 @@ Este é o backend do projeto Cosmic Backend - NASA, desenvolvido para gerenciar 
    ```bash
    php artisan serve
    ```
+
+### Configuração do Cron para Schedules
+
+Para que os comandos agendados no Laravel funcionem corretamente, é necessário configurar o cron no servidor. Adicione a seguinte entrada ao crontab do sistema:
+
+```bash
+* * * * * php /caminho/para/sua/aplicacao/artisan schedule:run >> /dev/null 2>&1
+```
+
+Substitua `/caminho/para/sua/aplicacao` pelo caminho completo do diretório onde o projeto está localizado.
 
 ### Testes
 
