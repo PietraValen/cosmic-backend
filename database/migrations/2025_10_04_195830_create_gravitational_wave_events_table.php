@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestampTz('event_date');
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
-            $table->enum('event_type', ['BBH', 'BNS', 'NSBH', 'MassGap', 'Unknown']);
+            $table->string('event_type');
             $table->decimal('mass_1', 10, 2)->nullable();
             $table->decimal('mass_2', 10, 2)->nullable();
             $table->decimal('distance_mpc', 10, 2)->nullable();

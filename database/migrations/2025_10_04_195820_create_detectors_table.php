@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('detectors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code')->unique();
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 11, 8);
-            $table->string('location');
-            $table->string('country');
+            $table->string('code');
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
+            $table->string('location')->nullable();
+            $table->string('country')->nullable();
             $table->decimal('arm_length_km', 5, 2)->nullable();
             $table->enum('status', ['active', 'inactive', 'maintenance'])->default('active');
             $table->date('operational_since')->nullable();

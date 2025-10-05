@@ -28,7 +28,7 @@ class GravitationalWaveEventController extends Controller
             'event_date' => 'required|date',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
-            'event_type' => ['required', Rule::in(['BBH', 'BNS', 'NSBH', 'MassGap', 'Unknown'])],
+            'event_type' => 'required|string||max:255',
             'mass_1' => 'nullable|numeric|min:0',
             'mass_2' => 'nullable|numeric|min:0',
             'distance_mpc' => 'nullable|numeric|min:0',
@@ -43,7 +43,6 @@ class GravitationalWaveEventController extends Controller
             'event_date.required' => 'A data do evento é obrigatória.',
             'latitude.between' => 'A latitude deve estar entre -90 e 90.',
             'longitude.between' => 'A longitude deve estar entre -180 e 180.',
-            'event_type.in' => 'O tipo de evento informado é inválido.',
         ]);
 
         $event = GravitationalWaveEvent::create($validated);
@@ -71,7 +70,7 @@ class GravitationalWaveEventController extends Controller
             'event_date' => 'sometimes|required|date',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
-            'event_type' => ['sometimes', 'required', Rule::in(['BBH', 'BNS', 'NSBH', 'MassGap', 'Unknown'])],
+            'event_type' => 'required|string',
             'mass_1' => 'nullable|numeric|min:0',
             'mass_2' => 'nullable|numeric|min:0',
             'distance_mpc' => 'nullable|numeric|min:0',
@@ -84,7 +83,6 @@ class GravitationalWaveEventController extends Controller
             'name.unique' => 'Este nome de evento já existe.',
             'latitude.between' => 'A latitude deve estar entre -90 e 90.',
             'longitude.between' => 'A longitude deve estar entre -180 e 180.',
-            'event_type.in' => 'O tipo de evento informado é inválido.',
         ]);
 
         $event->update($validated);
