@@ -1,0 +1,61 @@
+# Exemplo de render.yaml para deploy no Render
+# Substitua <PLACEHOLDER> pelos valores reais ou configure via painel da Render.
+
+services:
+  - type: web
+    name: cosmic-backend-web
+    runtime: docker
+    region: oregon
+    repo: <REPO_URL>
+    branch: main
+    dockerfilePath: Dockerfile
+    plan: starter
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: 'false'
+      - key: APP_URL
+        value: https://<YOUR_RENDER_SUBDOMAIN>.onrender.com
+      - key: APP_KEY
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+
+  - type: background
+    name: cosmic-backend-worker
+    runtime: docker
+    region: oregon
+    repo: <REPO_URL>
+    branch: main
+    dockerfilePath: Dockerfile
+    plan: starter
+    startCommand: php artisan queue:work --sleep=3 --tries=3 --timeout=60
+    envVars:
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: DB_PASSWORD
+        sync: false
+      - key: APP_KEY
+        sync: false
+
+  - type: cron
+    name: schedule-run
+    runtime: docker
+    region: oregon
+    repo: <REPO_URL>
+    branch: main
+    schedule: "*/15 * * * *"
+    startCommand: php artisan schedule:run
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        sync: false
